@@ -35,8 +35,9 @@ export default function App() {
   };
 
   React.useEffect(() => {
-    const index = async () => (await axios.get('/notas').then((res) => setNotes(res.data.notes)));
-    index();
+    (async () => (
+      await axios.get('/notas').then((res) => setNotes(res.data.notes))
+    ))();
   }, [axios])
 
   return (
@@ -64,7 +65,7 @@ export default function App() {
         <div className="card-notes">
           {notes.length > 0 ? (
             notes?.map(({ _id, subject, text }: Note) => (
-              <div className="card">
+              <div key={_id} className="card">
                 <div className="card-header">
                   <label className="color-primary">{subject}</label>
                   <div 
